@@ -19,7 +19,7 @@ M=size(timeseries,1); % Number of channels
 
 fprintf('Writing the raw data as a temporary .dat file...\n');
 raw_fname=[opts.base_tmp_fname,'.run_kilosort.tmp.dat'];
-temp_wh=[raw_fname,'-temp_wh.dat'];
+opts.temp_wh=[raw_fname,'-temp_wh.dat'];
 write_raw_timeseries(timeseries,raw_fname);
 
 fprintf('Getting the ks options...\n');
@@ -36,7 +36,7 @@ labels0=rez.st3(:,2);
 
 fprintf('Removing temporary files...\n');
 delete(raw_fname);
-delete(temp_wh);
+delete(opts.temp_wh);
 
 function ops=get_ks_ops(M,raw_fname,opts)
 
@@ -62,7 +62,7 @@ ops.showfigures         = 0; % whether to plot figures during optimization
 		
 ops.datatype            = 'dat';  % binary ('dat', 'bin') or 'openEphys'		
 ops.fbinary             = raw_fname; % will be created for 'openEphys'		
-ops.fproc               = temp_wh; % residual from RAM of preprocessed data		
+ops.fproc               = opts.temp_wh; % residual from RAM of preprocessed data		
 %ops.root                = fpath; % 'openEphys' only: where raw files are		
 % define the channel map as a filename (string) or simply an array		
 
