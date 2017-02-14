@@ -27,6 +27,6 @@ Now you should have a new processor registered in mountainprocess. Try:
 mp-spec ml_kilosort
 ```
 
-To run a prelim comparison with mountainsort follow the instructions in ml_kilosort/test_compare.
+To run a prelim comparison with mountainsort on synthetic data follow the instructions in ml_kilosort/test_compare.
 
 
