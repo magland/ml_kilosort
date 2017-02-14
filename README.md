@@ -8,7 +8,7 @@ This plugin is at a very early stage and is under prelim development. More info 
 
 ## Instructions
 
-First, install MountainLab.
+First, install MountainLab. Then clone this repository into the packages directory:
 
 ```bash
 cd mountainlab/packages
