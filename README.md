@@ -15,7 +15,7 @@ cd mountainlab/packages
 git clone https://github.com/magland/ml_kilosort.git
 ```
 
-If it's running, restart the processing daemon:
+If the processing daemon is running, restart it:
 
 ```bash
 mp-daemon-restart
