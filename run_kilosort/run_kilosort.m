@@ -16,20 +16,26 @@ addpath([mfilepath,'/../KiloSort/finalPass']);
 
 M=size(timeseries,1); % Number of channels
 
-% Write the raw data as a temporary .dat file
-raw_fname='run_kilosort.tmp.dat';
+fprintf('Writing the raw data as a temporary .dat file...\n');
+raw_fname=[timeseries,'.run_kilosort.tmp.dat'];
+temp_wh=[raw_fname,'-temp_wh.dat'];
 write_raw_timeseries(timeseries,raw_fname);
 
-% Get the kilosort options
+fprintf('Getting the ks options...\n');
 ks_ops=get_ks_ops(M,raw_fname,opts);
 
-% This part runs the normal Kilosort processing on the simulated data
+fprintf('Run the normal Kilosort processing on the simulated data...\n');
 [rez, DATA, uproj] = preprocessData(ks_ops); % preprocess data and extract spikes for initializationinst
 rez                = fitTemplates(rez, DATA, uproj);  % fit templates iteratively
 rez                = fullMPMU(rez, DATA);% extract final spike times (overlapping extraction)
 
+fprintf('Retrieve the times and labels');
 times0=rez.st3(:,1);
 labels0=rez.st3(:,2);
+
+fprintf('Removing temporary files...\n');
+delete(raw_fname);
+delete(temp_wh);
 
 function ops=get_ks_ops(M,raw_fname,opts)
 
@@ -38,7 +44,7 @@ function ops=get_ks_ops(M,raw_fname,opts)
 % CM.chanMap   = 1:M;
 % CM.chanMap0ind = CM.chanMap - 1;
 % CM.xcoords   = ones(M,1);
-% CM.ycoords   = [1:M]';
+% CM.ycoords   = [1:M]'; %'
 % CM.kcoords   = ones(M,1); % grouping of channels (i.e. tetrode groups)
 % save('chanMap.tmp.mat');
 % ops.chanMap             = 'chanMap.tmp.mat'; % make this file using createChannelMapFile.m		
@@ -55,7 +61,7 @@ ops.showfigures         = 0; % whether to plot figures during optimization
 		
 ops.datatype            = 'dat';  % binary ('dat', 'bin') or 'openEphys'		
 ops.fbinary             = raw_fname; % will be created for 'openEphys'		
-ops.fproc               = [raw_fname,'-temp_wh.dat']; % residual from RAM of preprocessed data		
+ops.fproc               = temp_wh; % residual from RAM of preprocessed data		
 %ops.root                = fpath; % 'openEphys' only: where raw files are		
 % define the channel map as a filename (string) or simply an array		
 
