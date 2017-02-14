@@ -1,0 +1,7 @@
+*** Install and configure mountainlab
+
+kron-run ms2 example1
+kron-view results ms2 example1
+
+kron-run ks16 example1
+kron-view results ks16 example1

@@ -1,0 +1,3 @@
+ms2 mountainsort_002.pipeline --curation=curation.script --mask_out_artifacts_threshold=0
+ks16 kilosort_001.pipeline --num_clusters=16
+ks32 kilosort_001.pipeline --num_clusters=32

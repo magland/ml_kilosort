@@ -1,0 +1,3 @@
+example1 examples/example1 --_iff=examples
+example2 examples/example2 --_iff=examples
+example3 examples/example3 --_iff=examples
