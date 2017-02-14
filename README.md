@@ -21,10 +21,12 @@ If it's running, restart the processing daemon:
 mp-daemon-restart
 ```
 
-Now you should have a new processor:
+Now you should have a new processor registered in mountainprocess. Try:
 
 ```bash
 mp-spec ml_kilosort
 ```
+
+To run a prelim comparison with mountainsort follow the instructions in ml_kilosort/test_compare.
 
 
