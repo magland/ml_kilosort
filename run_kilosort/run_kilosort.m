@@ -4,6 +4,7 @@ if nargin<1, run_kilosort_test; return; end;
 
 if (~isfield(opts,'num_clusters')) opts.num_clusters=20; end;
 if (~isfield(opts,'samplerate')) opts.samplerate=30000; end;
+if (~isfield(opts,'base_tmp_fname')) opts.base_tmp_fname='unknown'; end;
 
 mfilepath=fileparts(mfilename('fullpath'));
 addpath([mfilepath,'/../KiloSort']);
@@ -17,7 +18,7 @@ addpath([mfilepath,'/../KiloSort/finalPass']);
 M=size(timeseries,1); % Number of channels
 
 fprintf('Writing the raw data as a temporary .dat file...\n');
-raw_fname=[timeseries,'.run_kilosort.tmp.dat'];
+raw_fname=[opts.base_tmp_fname,'.run_kilosort.tmp.dat'];
 temp_wh=[raw_fname,'-temp_wh.dat'];
 write_raw_timeseries(timeseries,raw_fname);
 

@@ -4,6 +4,7 @@ fprintf('Reading timeseries...\n');
 timeseries=readmda(timeseries_path);
 
 fprintf('Running kilosort...\n');
+opts.base_tmp_fname=timeseries_path;
 [times0,labels0]=run_kilosort(timeseries,opts);
 
 fprintf('Writing firings output...\n');
