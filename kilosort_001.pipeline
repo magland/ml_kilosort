@@ -15,7 +15,7 @@ function main(params) {
 
 	
 	// Clustering
-	var firings1=Process('ml_kilosort',{timeseries:raw,},{
+	var firings1=Process('ml_kilosort',{timeseries:raw},{
 			num_clusters:params.num_clusters
 		}).firings_out;
 
