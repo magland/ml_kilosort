@@ -8,6 +8,8 @@ This plugin is at a very early stage and is under prelim development. More info 
 
 ## Instructions
 
+You must have Matlab with the signal processing toolbox installed, invokable by the command "matlab".
+
 First, install MountainLab. Then clone this repository into the packages directory:
 
 ```bash
