@@ -4,7 +4,9 @@ if nargin<1, run_kilosort_test; return; end;
 
 if (~isfield(opts,'num_clusters')) opts.num_clusters=20; end;
 if (~isfield(opts,'samplerate')) opts.samplerate=30000; end;
-if (~isfield(opts,'base_tmp_fname')) opts.base_tmp_fname='unknown'; end;
+if (~isfield(opts,'tempdir'))
+    error('Missing required option: opts.tempdir');
+end;
 
 mfilepath=fileparts(mfilename('fullpath'));
 addpath([mfilepath,'/../KiloSort']);
@@ -18,7 +20,7 @@ addpath([mfilepath,'/../KiloSort/finalPass']);
 M=size(timeseries,1); % Number of channels
 
 fprintf('Writing the raw data as a temporary .dat file...\n');
-raw_fname=[opts.base_tmp_fname,'.run_kilosort.tmp.dat'];
+raw_fname=[opts.tempdir,'/run_kilosort.tmp.dat'];
 opts.temp_wh=[raw_fname,'-temp_wh.dat'];
 write_raw_timeseries(timeseries,raw_fname);
 
@@ -199,6 +201,8 @@ X=rand(sz);
 X=a+(b-a)*X;
 
 function run_kilosort_test
+
+opts.tempdir='/tmp'; % Maybe we should use something better
 
 mfilepath=fileparts(mfilename('fullpath'));
 addpath([mfilepath,'/run_kilosort_test']);
