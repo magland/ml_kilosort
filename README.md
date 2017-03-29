@@ -17,6 +17,15 @@ cd mountainlab/packages
 git clone https://github.com/magland/ml_kilosort.git
 ```
 
+If you would like to run KiloSort in GPU mode (recommended) you must first make sure MATLAB has cuda capabilities. That means that cuda must be installed, you have the matlab parallel computing toolbox, and mexcuda matlab command works properly. For Ubuntu 16.04 you should install cuda 8.0 and make sure you have the most recent version of matlab (at least 2017a). When you are ready do the following to compile the KiloSort cuda files. From matlab console:
+
+```
+cd mountainlab/packages/ml_kilosort/KiloSort/CUDA
+mexGPUall
+```
+
+If successful you will get a new mexMPmuFEAT.mexa64 file (at least on Linux).
+
 If the processing daemon is running, restart it:
 
 ```bash
