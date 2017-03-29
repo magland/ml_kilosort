@@ -4,9 +4,6 @@ if nargin<1, run_kilosort_test; return; end;
 
 if (~isfield(opts,'num_clusters')) opts.num_clusters=20; end;
 if (~isfield(opts,'samplerate')) opts.samplerate=30000; end;
-if (~isfield(opts,'tempdir'))
-    error('Missing required option: opts.tempdir');
-end;
 
 mfilepath=fileparts(mfilename('fullpath'));
 addpath([mfilepath,'/../KiloSort']);
@@ -16,6 +13,19 @@ addpath([mfilepath,'/../KiloSort/initialize']);
 addpath([mfilepath,'/../KiloSort/mainLoop']);
 addpath([mfilepath,'/../KiloSort/mergesplits']);
 addpath([mfilepath,'/../KiloSort/finalPass']);
+addpath([mfilepath,'/../KiloSort/CUDA']);
+
+if (~isfield(opts,'GPU'))
+    if (exist('mexWtW2')==3)
+        opts.GPU=1; 
+    else
+        opts.GPU=0; 
+    end;
+end;
+if (~isfield(opts,'parfor')) opts.parfor=opts.GPU; end; %by default use parfor only if using GPU (not sure if makes sense)
+if (~isfield(opts,'tempdir'))
+    error('Missing required option: opts.tempdir');
+end;
 
 M=size(timeseries,1); % Number of channels
 
@@ -56,9 +66,9 @@ ops.Nchan=M;
 ops.NchanTOT=M;
 ops.fs=opts.samplerate;
 
-ops.GPU                 = 0; % whether to run this code on an Nvidia GPU (much faster, mexGPUall first)		
+ops.GPU                 = opts.GPU; % whether to run this code on an Nvidia GPU (much faster, mexGPUall first)		
 
-ops.parfor              = 1; % whether to use parfor to accelerate some parts of the algorithm		
+ops.parfor              = opts.parfor; % whether to use parfor to accelerate some parts of the algorithm		
 ops.verbose             = 1; % whether to print command line progress		
 ops.showfigures         = 0; % whether to plot figures during optimization		
 		
